@@ -66,9 +66,7 @@ pscf-im/
 │   ├── metrics/fairness.py      # EQ, FR, recovery error, audit proxy PS*
 │   ├── baselines/methods.py     # IMM / PIANO / EPIC / FIMM / UpLift / FAIM-RL / Total-Fairness
 │   ├── evaluation.py            # frozen-oracle scoring + counterfactual PS-Bias-IM
-│   └── pipeline.py              # infer → edit → fair-world seed
-├── experiments/                 # one script per table / figure (CLI)
-├── tests/                       # unit + sanity checks (run with or without pytest)
+│   └── pipeline.py              # infer → edit → fair-world seed             
 ├── configs/                     # default (demo) and certified (paper-scale) YAML
 ├── scripts/reproduce_all.sh     # end-to-end reproduction
 ├── main.py                      # unified entry point (dispatches all of the above)
@@ -78,48 +76,11 @@ pscf-im/
 
 ---
 
-## 4. Quick start
-
-Everything is driven from a single entry point, `main.py`:
-
-```bash
-python main.py --list                 # show available commands
-python main.py test                   # 13 sanity checks (≈seconds)
-python main.py certified --n 400 --k 10 --worlds 60 --seeds 3
-python main.py figures --n 800
-python main.py all                    # tests + all tables + figure (demo profile)
-python main.py all --profile paper    # paper-scale (needs torch)
-```
-
-`main.py` forwards any extra flags to the underlying `experiments/*.py` script,
-so each script's own `--help` stays authoritative. You can also call the scripts
-directly (e.g. `python experiments/run_certified.py ...`) or run the bundled
-`bash scripts/reproduce_all.sh`.
-
-Every script writes three artifacts per result to `results/`:
-`*.csv` (machine-readable values), `*.tex` (a `booktabs` table to `\input{}`),
-and for figures `*.pdf` (vector, for LaTeX) plus `*.png` (preview).
+---
 
 ---
 
-## 5. Reproducing each result
-
-| Paper item | Command | Output |
-|---|---|---|
-| Table II — real-network audit | `python experiments/run_realnet.py --networks antelope_valley email_eu --k 10` | `results/realnet.*` |
-| Table III — certified comparison | `python experiments/run_certified.py --n 400 --k 10 --worlds 60 --seeds 3` | `results/certified.*` |
-| Table IV — ablation | `python experiments/run_ablation.py --n 400 --k 10 --worlds 60 --seeds 3` | `results/ablation.*` |
-| Table V — recovery vs supervision | `python experiments/run_recovery.py --n 600 --seeds 3` | `results/recovery.*` |
-| Table VI — robustness | `python experiments/run_robustness.py --n 500 --seeds 3` | `results/robustness.*` |
-| Fig. 3 — disentanglement | `python experiments/make_figures.py --n 800` | `results/fig_disentangle.*` |
-
-Paper-scale runs (`n=1005, k=20, R=1e4, 5 seeds`, torch backend) are launched via
-`PSCF_PROFILE=paper bash scripts/reproduce_all.sh` and are intended for a machine
-with PyTorch installed.
-
----
-
-## 6. Method, end to end
+##  Method, end to end
 
 **1. Planted SCM (`data/planted.py`).** A directed SBM with a known structural
 causal model: a sensitive attribute `S`, a covariate `X`, a fair channel
