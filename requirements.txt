@@ -1,0 +1,22 @@
+# Core scientific stack (versions pinned to a tested, reproducible environment).
+# The NumPy reference backend, all experiments, figures, and tests run with
+# ONLY these dependencies.
+numpy==2.4.4
+scipy==1.17.1
+networkx==3.6.1
+pandas==3.0.2
+scikit-learn==1.8.0
+matplotlib==3.10.8
+seaborn==0.13.2
+PyYAML==6.0.3
+
+# --- Optional: production GNN-VAE backend (pscf_im.models.estimator_torch) ---
+# Install separately to enable backend='torch' (the path used for the paper's
+# headline numbers). CPU build is sufficient for the benchmark sizes.
+#   pip install torch==2.3.1
+# torch==2.3.1
+
+# --- Optional: developer tooling ---
+#   pip install pytest tqdm
+# pytest==8.2.0
+# tqdm==4.66.4
