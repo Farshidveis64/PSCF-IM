@@ -118,7 +118,7 @@ disentanglement leakage → near zero).
 
 ---
 
-## 7. Reproducibility guarantees
+## . Reproducibility guarantees
 
 - A single entry point, `pscf_im.utils.seeding.set_global_seed`, fixes
   `random`, NumPy, `PYTHONHASHSEED`, and (when present) the torch CPU/CUDA
@@ -130,7 +130,7 @@ disentanglement leakage → near zero).
 
 ---
 
-## 8. Real benchmark data
+## . Real benchmark data
 
 The four benchmarks are **not** redistributed. The loader uses the raw files
 when present under `data/raw/` and otherwise builds a deterministic surrogate
@@ -159,20 +159,6 @@ certified** (it conflates fair with unfair `S`-dependence). On real data the
 full PSCF-IM pipeline infers the latent channels from observed cascades via the
 torch backend; the runnable `run_realnet.py` reports the baselines and `PS*`.
 
----
-
-## 9. Limitations (read before citing numbers)
-
-- The committed `results/` come from the **NumPy reference** backend; use the
-  torch backend and the paper-scale config for the headline disentanglement
-  quality.
-- The demo configuration uses small `n`, few worlds, and few seeds, so
-  per-condition deltas carry visible Monte-Carlo noise; magnitudes sharpen at
-  the paper scale.
-- Declaring the fair/unfair partition does not remove the modeling burden — it
-  relocates it onto the **provenance of the flags** `R_b`. Group-skewed flags
-  can re-introduce bias (see `run_robustness.py`), which is why the paper
-  recommends a mandatory subgroup audit of the flagging process.
 
 ---
 
